@@ -84,13 +84,15 @@ class Server:
         You can use the math module if necessary.
         """
         page_data = self.get_page(page, page_size)
-        total_pages = len(self.dataset())
+
+        total_items = len(self.dataset())
+        total_pages = math.ceil(total_items / page_size)
 
         return {
-            "page_size": page_size if page_size <= len(page_data) else None,
+            "page_size": len(page_data),
             "page": page,
             "data": page_data,
-            "next_page": page + 1 if page >= 0 else None,
+            "next_page": page + 1 if page < total_pages else None,
             "prev_page": max(1, page - 1) if page > 1 else None,
             "total_pages": total_pages
         }
