@@ -19,6 +19,7 @@ def get(self, key):
 Must return the value in self.cache_data linked to key.
 If key is None or if the key doesn’t exist in self.cache_data, return None.
 """
+from typing import Dict
 BaseCaching = __import__('base_caching').BaseCaching
 
 
@@ -30,7 +31,7 @@ class LIFOCache(BaseCaching):
         """calls the parents initializer and methods"""
         super().__init__()
 
-    def put(self, key, item):
+    def put(self, key: str, item: Dict):
         """assign to the dictionary self.cache_data the item
         value for the key key.
 
@@ -40,13 +41,14 @@ class LIFOCache(BaseCaching):
         if key is None and item is None:
             return
 
+        # if cache_data is full remove the last inserted element
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            last_key, last_item = self.cache_data.popitem()
+            last_key, _ = self.cache_data.popitem()
             print(f"DISCARD:{last_key}")
 
         self.cache_data[key] = item
 
-    def get(self, key):
+    def get(self, key:str) -> Dict:
         """ Must return the value in self.cache_data linked to key.
         If key is None or if the key doesn’t exist in self.cache_data,
         return None.
