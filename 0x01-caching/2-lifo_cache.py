@@ -39,7 +39,7 @@ class LIFOCache(BaseCaching):
         anything.
         """
         if key is None and item is None:
-            return
+            pass
 
         # if cache_data is full remove the last inserted element
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
