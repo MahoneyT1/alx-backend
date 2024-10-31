@@ -47,14 +47,15 @@ class LIFOCache(BaseCaching):
 
             self.cache_data[key] = item
 
-    def get(self, key: str) -> Dict:
+    def get(self, key) -> Dict:
         """ Must return the value in self.cache_data
         linked to key.
         If key is None or if the key doesn’t exist in
         self.cache_data, return None.
         """
+        return self.cache_data.get(key) if key in self.cache_data else None
 
-        if key is None and key not in self.cache_data.keys():
-            return None
-        else:
-            return self.cache_data.get(key)
+        # if key is None and key not in self.cache_data.keys():
+        #     return None
+        # else:
+        #     return self.cache_data[key]
