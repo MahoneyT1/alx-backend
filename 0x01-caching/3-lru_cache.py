@@ -54,6 +54,7 @@ class LRUCache(BaseCaching):
             print(f'DISCARD:{popp}')
 
     def get(self, key):
+        """Retrieves the ge"""
         if key is None or key not in self.cache_data:
             return None
 
