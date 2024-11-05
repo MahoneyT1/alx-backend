@@ -21,8 +21,8 @@ class Config:
     """Flask config class"""
 
     LANGUAGES = ["en", "fr"]
-    DEFAULT_LOCALE = 'en'
-    DEFAULT_TIMEZONE = 'UTC'
+    DEFAULT_LOCALE = "en"
+    DEFAULT_TIMEZONE = "UTC"
 
 
 app.config.from_object(Config)
