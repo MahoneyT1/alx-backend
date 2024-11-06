@@ -13,7 +13,7 @@
     {% if user %}
         <p>{{ _("logged_in_as", username=user.name) }}</p>
     {% else %}
-        <p>{{ _("You are not logged in.") }}</p>
+        <p>{{ _("not_logged_in") }}</p>
     {% endif%}
 
     {{ g.local }}
