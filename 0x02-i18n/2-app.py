@@ -37,7 +37,7 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get_local():
+def get_locale():
     """Use request.accept_languages to determine the best
     match with our supported languages.
     """
