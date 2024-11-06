@@ -24,7 +24,7 @@ class Config:
     """
 
     LANGUAGES = ["en", "fr"]
-    DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_LOCALE = "en"
     DEFAULT_TIMEZONE = pytz.utc
 
 
