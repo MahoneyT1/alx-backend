@@ -40,8 +40,7 @@ def get_local():
     """Use request.accept_languages to determine the best
     match with our supported languages.
     """
-
-    return request
+    return request.accept_languages.best_match(Config.LANGUAGES)
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
