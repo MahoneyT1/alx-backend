@@ -13,6 +13,7 @@ Use that class as config for your Flask app.
 
 from flask import Flask, render_template
 from flask_babel import Babel
+import pytz
 
 app = Flask(__name__, template_folder="templates")
 
@@ -24,7 +25,7 @@ class Config:
 
     LANGUAGES = ["en", "fr"]
     DEFAULT_LOCALE = "en"
-    DEFAULT_TIMEZONE = "UTC"
+    DEFAULT_TIMEZONE = pytz.utc
 
 
 app.config.from_object(Config)
