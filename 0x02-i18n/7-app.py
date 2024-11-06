@@ -14,6 +14,7 @@ Use that class as config for your Flask app.
 from flask import Flask, render_template, request, g
 from flask_babel import Babel, gettext
 import pytz
+from pytz.exceptions import UnknownTimeZoneError
 
 
 class Config:
@@ -56,6 +57,29 @@ def get_locale():
     return app.config['BABEL_DEFAULT_LOCALE']
 
 
+@babel.timezoneselector
+def get_timezone():
+    """The logic should be the same as get_locale:
+    Find timezone parameter in URL parameters
+    
+    Find time zone from user settings
+    Default to UTC
+    Before returning a URL-provided or user time zone, you must
+    validate that it is a valid time zone. To that, use
+    pytz.timezone and catch the pytz.exceptions.UnknownTimeZoneError
+    exception.
+    """
+    timezone = request.args.get("timezone")
+
+    if timezone:
+        try:
+            if isinstance(timezone, pytz.timezone(timezone)):
+                return timezone
+        except UnknownTimeZoneError as e:
+            print(e)
+    return app.config['BABEL_DEFAULT_TIMEZONE']
+
+
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
     2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
@@ -84,6 +108,7 @@ def before_request():
     and set it as a global on flask.g.user
     """
     g.user = get_user()
+    g.timezone = get_timezone()
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
@@ -91,7 +116,7 @@ def home():
     """ home route that handles a get request on the hompage
     also renders the template
     """
-    return render_template("6-index.html", user=g.user)
+    return render_template("6-index.html", user=g.user, timezone=g.timezone)
 
 
 if __name__ == '__main__':
