@@ -1,6 +1,7 @@
 import redis from 'redis'
 import { createClient } from "redis";
 import { promisify } from 'util'
+import { redis } from 'redis';
 
 
 const client = createClient()
